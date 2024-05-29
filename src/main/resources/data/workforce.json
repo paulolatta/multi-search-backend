@@ -6,7 +6,7 @@
   },
   {
     "WorkforceID": 2,
-    "Name": "Danilo Ines",
+    "Name": "Danilo In�s",
     "Shift": "Turno B"
   },
   {
@@ -16,7 +16,7 @@
   },
   {
     "WorkforceID": 4,
-    "Name": "Debora Pinhal",
+    "Name": "D�bora Pinhal",
     "Shift": "Turno A"
   },
   {
@@ -56,7 +56,7 @@
   },
   {
     "WorkforceID": 12,
-    "Name": "Micael Diaz",
+    "Name": "Micael D�az",
     "Shift": "Turno C"
   },
   {
@@ -66,12 +66,12 @@
   },
   {
     "WorkforceID": 14,
-    "Name": "Ofilia Avelar",
+    "Name": "Of�lia Avelar",
     "Shift": "Turno B"
   },
   {
     "WorkforceID": 15,
-    "Name": "Paulo Brito",
+    "Name": "Paulo Bri�o",
     "Shift": "Turno C"
   },
   {
@@ -106,12 +106,12 @@
   },
   {
     "WorkforceID": 22,
-    "Name": "Zacarias Quiros",
+    "Name": "Zacarias Quir�s",
     "Shift": "Turno A"
   },
   {
     "WorkforceID": 23,
-    "Name": "tnia Sousa",
+    "Name": "�nia Sousa",
     "Shift": "Turno B"
   }
 ]

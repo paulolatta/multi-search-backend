@@ -2,6 +2,7 @@ package com.multisearch.search.resources;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class SearchResource {
 	    private JsonReaderService jsonReaderService;
 
 	    @GetMapping
-	    public ResponseEntity<List<Object>> searchAll(@RequestParam String keyword) {
-	        List<Object> results;
+	    public ResponseEntity<Map<String, List<Object>>> searchAll(@RequestParam String keyword) {
+	        Map<String, List<Object>> results;
 	        try {
 	            results = jsonReaderService.readAllEntities(keyword);
 	        } catch (IOException e) {
