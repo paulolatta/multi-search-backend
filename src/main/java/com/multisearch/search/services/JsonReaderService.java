@@ -3,10 +3,13 @@ package com.multisearch.search.services;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -86,8 +89,8 @@ public class JsonReaderService {
     }
 
     private <T> void addToResults(Map<String, List<Object>> results, String entityName, List<T> entities, String keyword) {
-    	List<Object> filteredEntities = new ArrayList<>(searchInEntityList(entities, keyword));
-    	if (!filteredEntities.isEmpty()) {
+        List<Object> filteredEntities = new ArrayList<>(searchInEntityList(entities, keyword));
+        if (!filteredEntities.isEmpty()) {
             results.put(entityName, filteredEntities);
         }
     }
@@ -103,17 +106,30 @@ public class JsonReaderService {
     }
 
     private <T> boolean matchesKeyword(T entity, String keyword) {
+        String normalizedKeyword = normalizeString(keyword);
         for (Field field : entity.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
                 Object value = field.get(entity);
-                if (value instanceof String && ((String) value).toLowerCase().contains(keyword.toLowerCase())) {
-                    return true;
+                if (value instanceof String) {
+                    String normalizedValue = normalizeString((String) value);
+                    if (normalizedValue.contains(normalizedKeyword)) {
+                        return true;
+                    }
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
         return false;
+    }
+
+    private String normalizeString(String input) {
+        String normalized = Normalizer.normalize(input, Form.NFD);
+        Pattern diacriticalPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        normalized = diacriticalPattern.matcher(normalized).replaceAll("").toLowerCase();
+        normalized = normalized.replaceAll("\\s+", "");
+
+        return normalized;
     }
 }
