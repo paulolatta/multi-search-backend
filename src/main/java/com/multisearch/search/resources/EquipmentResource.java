@@ -1,18 +1,25 @@
 package com.multisearch.search.resources;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.multisearch.search.entities.Equipment;
+import com.multisearch.search.services.EquipmentService;
 
 @RestController
 @RequestMapping(value = "/equipments")
 public class EquipmentResource {
+	@Autowired
+	private EquipmentService service;
+
 	@GetMapping
-	public ResponseEntity<Equipment> findAll() {
-		Equipment e = new Equipment(1L, "Teste");
-		return ResponseEntity.ok().body(e);
+	public ResponseEntity<List<Equipment>> findAll() {
+		List<Equipment> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 }
