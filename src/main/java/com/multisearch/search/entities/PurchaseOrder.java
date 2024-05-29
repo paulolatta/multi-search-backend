@@ -15,8 +15,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_salesOrder")
-public class SalesOrder implements Serializable {
+@Table(name = "tb_purchaseOrder")
+public class PurchaseOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -25,7 +25,7 @@ public class SalesOrder implements Serializable {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant deliveryDate;
-	private String customer;
+	private String supplier;
 	
 	@ManyToOne
 	@JoinColumn(name = "material_id")
@@ -33,15 +33,16 @@ public class SalesOrder implements Serializable {
 	private Integer quantity;
 	private Double totalValue;
 	
-	public SalesOrder() {
+	public PurchaseOrder() {
 	}
 
-	public SalesOrder(Long id, Instant deliveryDate, String customer, Material material, Integer quantity,
+	public PurchaseOrder(Long id, Instant deliveryDate, String supplier, Material material, Integer quantity,
 			Double totalValue) {
 		super();
 		this.id = id;
 		this.deliveryDate = deliveryDate;
-		this.customer = customer;
+		this.supplier = supplier;
+		this.material = material;
 		this.quantity = quantity;
 		this.totalValue = totalValue;
 	}
@@ -54,12 +55,12 @@ public class SalesOrder implements Serializable {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public String getCustomer() {
-		return customer;
+	public String getSupplier() {
+		return supplier;
 	}
 
-	public void setCustomer(String customer) {
-		this.customer = customer;
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
 	}
 
 	public Material getMaterial() {
@@ -99,7 +100,7 @@ public class SalesOrder implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SalesOrder other = (SalesOrder) obj;
+		PurchaseOrder other = (PurchaseOrder) obj;
 		return Objects.equals(id, other.id);
 	}
 }

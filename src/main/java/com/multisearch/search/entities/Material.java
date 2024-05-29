@@ -28,6 +28,10 @@ public class Material implements Serializable {
 	@OneToMany(mappedBy = "material")
 	private List<SalesOrder> salesOrdes = new ArrayList<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "material")
+	private List<PurchaseOrder> purchaseOrdes = new ArrayList<>();
+	
 	public Material() {
 	}
 
@@ -73,4 +77,9 @@ public class Material implements Serializable {
 	public List<SalesOrder> getSalesOrdes() {
 		return salesOrdes;
 	}
+	
+	public List<PurchaseOrder> getPurchaseOrdes() {
+		return purchaseOrdes;
+	}
+	
 }
