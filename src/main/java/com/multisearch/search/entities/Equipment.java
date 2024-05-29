@@ -3,37 +3,32 @@ package com.multisearch.search.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_equipment")
 public class Equipment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @JsonProperty("EquipmentID")
+	private String id;
+	
+	@JsonProperty("EquipmentName")
 	private String name;
 	
 	public Equipment() {
 	}
 
-	public Equipment(Long id, String name) {
+	public Equipment(String id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {

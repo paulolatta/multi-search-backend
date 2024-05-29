@@ -4,45 +4,51 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.multisearch.search.utils.CustomDateDeserializer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_purchaseOrder")
 public class PurchaseOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@JsonProperty("PurchaseOrderID")
+	private String id;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    @JsonDeserialize(using = CustomDateDeserializer.class)
+	@JsonProperty("DeliveryDate")
 	private Instant deliveryDate;
+	@JsonProperty("Supplier")
 	private String supplier;
 	
-	@ManyToOne
-	@JoinColumn(name = "material_id")
-	private Material material;
+	@JsonProperty("MaterialID")
+	private String materialId;
+	@JsonProperty("MaterialName")
+	private String materialName;
+	
+	@JsonProperty("Quantity")
 	private Integer quantity;
+	@JsonProperty("TotalCost")
 	private Double totalValue;
 	
 	public PurchaseOrder() {
 	}
 
-	public PurchaseOrder(Long id, Instant deliveryDate, String supplier, Material material, Integer quantity,
-			Double totalValue) {
+	public PurchaseOrder(String id, Instant deliveryDate, String supplier, String materialId, String materialName,
+			Integer quantity, Double totalValue) {
 		super();
 		this.id = id;
 		this.deliveryDate = deliveryDate;
 		this.supplier = supplier;
-		this.material = material;
+		this.materialId = materialId;
+		this.materialName = materialName;
 		this.quantity = quantity;
 		this.totalValue = totalValue;
 	}
@@ -63,12 +69,12 @@ public class PurchaseOrder implements Serializable {
 		this.supplier = supplier;
 	}
 
-	public Material getMaterial() {
-		return material;
+	public String getMaterialName() {
+		return materialName;
 	}
 
-	public void setMaterial(Material material) {
-		this.material = material;
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
 	}
 
 	public Integer getQuantity() {
@@ -87,6 +93,10 @@ public class PurchaseOrder implements Serializable {
 		this.totalValue = totalValue;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -102,5 +112,5 @@ public class PurchaseOrder implements Serializable {
 			return false;
 		PurchaseOrder other = (PurchaseOrder) obj;
 		return Objects.equals(id, other.id);
-	}
+	}	
 }

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.multisearch.search.entities.Workforce;
 
-public interface WorkforceRepository extends JpaRepository<Workforce, Long> {
+public interface WorkforceRepository extends JpaRepository<Workforce, String> {
 
 }

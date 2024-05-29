@@ -4,44 +4,51 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.multisearch.search.utils.CustomDateDeserializer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_salesOrder")
 public class SalesOrder implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@JsonProperty("SalesOrderID")
+	private String id;
 	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@JsonDeserialize(using = CustomDateDeserializer.class)
+	@JsonProperty("DeliveryDate")
 	private Instant deliveryDate;
+
+	@JsonProperty("Customer")
 	private String customer;
-	
-	@ManyToOne
-	@JoinColumn(name = "material_id")
-	private Material material;
+	@JsonProperty("MaterialID")
+	private String materialId;
+	@JsonProperty("MaterialName")
+	private String materialName;
+	@JsonProperty("Quantity")
 	private Integer quantity;
+	@JsonProperty("TotalValue")
 	private Double totalValue;
 	
 	public SalesOrder() {
 	}
 
-	public SalesOrder(Long id, Instant deliveryDate, String customer, Material material, Integer quantity,
-			Double totalValue) {
+	public SalesOrder(String id, Instant deliveryDate, String customer, String materialId, String materialName,
+			Integer quantity, Double totalValue) {
 		super();
 		this.id = id;
 		this.deliveryDate = deliveryDate;
 		this.customer = customer;
+		this.materialId = materialId;
+		this.materialName = materialName;
 		this.quantity = quantity;
 		this.totalValue = totalValue;
 	}
@@ -62,12 +69,12 @@ public class SalesOrder implements Serializable {
 		this.customer = customer;
 	}
 
-	public Material getMaterial() {
-		return material;
+	public String getMaterialName() {
+		return materialName;
 	}
 
-	public void setMaterial(Material material) {
-		this.material = material;
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
 	}
 
 	public Integer getQuantity() {

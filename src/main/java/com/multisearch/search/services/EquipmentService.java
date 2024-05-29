@@ -16,5 +16,4 @@ public class EquipmentService {
 	public List<Equipment> findAll(){
 		return repository.findAll();
 	}
-
 }
