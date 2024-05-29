@@ -1,12 +1,17 @@
 package com.multisearch.search.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +23,10 @@ public class Material implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "material")
+	private List<SalesOrder> salesOrdes = new ArrayList<>();
 	
 	public Material() {
 	}
@@ -59,5 +68,9 @@ public class Material implements Serializable {
 			return false;
 		Material other = (Material) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public List<SalesOrder> getSalesOrdes() {
+		return salesOrdes;
 	}
 }
