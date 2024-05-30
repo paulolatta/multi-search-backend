@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multisearch.search.entities.Equipment;
 import com.multisearch.search.entities.Material;
@@ -24,66 +23,6 @@ import com.multisearch.search.entities.Workforce;
 @Service
 public class JsonReaderService {
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    /**
-     * Lê uma lista de objetos Equipment de um arquivo JSON.
-     *
-     * @param filePath o caminho do arquivo JSON
-     * @return uma lista de objetos Equipment
-     * @throws IOException se ocorrer um erro de leitura do arquivo
-     */
-    public List<Equipment> readEquipmentsFromJson(String filePath) throws IOException {
-        File file = new File(filePath);
-        return objectMapper.readValue(file, new TypeReference<List<Equipment>>() {});
-    }
-
-    /**
-     * Lê uma lista de objetos Material de um arquivo JSON.
-     *
-     * @param filePath o caminho do arquivo JSON
-     * @return uma lista de objetos Material
-     * @throws IOException se ocorrer um erro de leitura do arquivo
-     */
-    public List<Material> readMaterialFromJson(String filePath) throws IOException {
-        File file = new File(filePath);
-        return objectMapper.readValue(file, new TypeReference<List<Material>>() {});
-    }
-
-    /**
-     * Lê uma lista de objetos PurchaseOrder de um arquivo JSON.
-     *
-     * @param filePath o caminho do arquivo JSON
-     * @return uma lista de objetos PurchaseOrder
-     * @throws IOException se ocorrer um erro de leitura do arquivo
-     */
-    public List<PurchaseOrder> readPurchaseFromJson(String filePath) throws IOException {
-        File file = new File(filePath);
-        return objectMapper.readValue(file, new TypeReference<List<PurchaseOrder>>() {});
-    }
-
-    /**
-     * Lê uma lista de objetos SalesOrder de um arquivo JSON.
-     *
-     * @param filePath o caminho do arquivo JSON
-     * @return uma lista de objetos SalesOrder
-     * @throws IOException se ocorrer um erro de leitura do arquivo
-     */
-    public List<SalesOrder> readSalesFromJson(String filePath) throws IOException {
-        File file = new File(filePath);
-        return objectMapper.readValue(file, new TypeReference<List<SalesOrder>>() {});
-    }
-
-    /**
-     * Lê uma lista de objetos Workforce de um arquivo JSON.
-     *
-     * @param filePath o caminho do arquivo JSON
-     * @return uma lista de objetos Workforce
-     * @throws IOException se ocorrer um erro de leitura do arquivo
-     */
-    public List<Workforce> readWorkforceFromJson(String filePath) throws IOException {
-        File file = new File(filePath);
-        return objectMapper.readValue(file, new TypeReference<List<Workforce>>() {});
-    }
 
     /**
      * Lê uma lista de objetos de um arquivo JSON, especificando o tipo de entidade.

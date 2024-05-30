@@ -1,19 +1,28 @@
 package com.multisearch.search.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multisearch.search.entities.PurchaseOrder;
-import com.multisearch.search.repositories.PurchaseOrderRepository;
 
 @Service
 public class PurchaseOrderService {
-	@Autowired
-	private PurchaseOrderRepository repository;
-	
-	public List<PurchaseOrder> findAll(){
-		return repository.findAll();
-	}
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    /**
+     * Lê uma lista de objetos PurchaseOrder de um arquivo JSON.
+     *
+     * @param filePath o caminho do arquivo JSON
+     * @return uma lista de objetos PurchaseOrder
+     * @throws IOException se ocorrer um erro de leitura do arquivo
+     */
+    public List<PurchaseOrder> readPurchaseFromJson(String filePath) throws IOException {
+        File file = new File(filePath);
+        return objectMapper.readValue(file, new TypeReference<List<PurchaseOrder>>() {});
+    }
 }

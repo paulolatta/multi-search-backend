@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.multisearch.search.entities.Material;
-import com.multisearch.search.services.JsonReaderService;
+import com.multisearch.search.services.MaterialService;
 
 @RestController
 @RequestMapping(value = "/materials")
 public class MaterialResource {
 	@Autowired
-    private JsonReaderService jsonReaderService;
+    private MaterialService materialService;
 
 	@GetMapping
     public ResponseEntity<List<Material>> findAll() {
         List<Material> list;
         try {
             String filePath = "src/main/resources/data/materials.json";
-            list = jsonReaderService.readMaterialFromJson(filePath);
+            list = materialService.readMaterialFromJson(filePath);
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();

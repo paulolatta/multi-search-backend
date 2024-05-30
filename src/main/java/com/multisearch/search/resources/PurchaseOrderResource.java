@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.multisearch.search.entities.PurchaseOrder;
-import com.multisearch.search.services.JsonReaderService;
+import com.multisearch.search.services.PurchaseOrderService;
 
 @RestController
 @RequestMapping(value = "/purchase_order")
 public class PurchaseOrderResource {
 	@Autowired
-    private JsonReaderService jsonReaderService;
+    private PurchaseOrderService purchaseOrderService;
 
 	@GetMapping
     public ResponseEntity<List<PurchaseOrder>> findAll() {
         List<PurchaseOrder> list;
         try {
             String filePath = "src/main/resources/data/purchase_orders.json";
-            list = jsonReaderService.readPurchaseFromJson(filePath);
+            list = purchaseOrderService.readPurchaseFromJson(filePath);
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
